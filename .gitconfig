@@ -1,0 +1,68 @@
+[alias]
+  s = status
+  st = status
+  wow = status
+  c = checkout
+  co = checkout
+  a = add
+  cm = commit
+  ct = commit
+  b = branch
+  br = branch
+  ch = cherry-pick
+  d = diff
+  df = diff
+  dif = diff
+  r = rebase
+  changes = "!f() { if [ $1 ]; then git diff $1~ $1; else git diff HEAD~ HEAD; fi }; f"
+  props = blame
+  staged = diff --staged
+  amend = commit --amend --no-edit
+  continue = rebase --continue
+  yolo = push --force
+  oneline = log --date=short --no-merges --invert-grep --grep=^Build --grep=^Version --format="%C(auto)%h%x20%<(10,trunc)%an%x20%C(auto,blue)%ad%C(auto,reset)%x20%<(70,trunc)%s"
+  fuller = log -n1 --format=fuller
+  logme = log --date=short --author='Nathan Ward' --format="%C(auto)%h%x20%<(10,trunc)%an%x20%C(auto,blue)%ad%C(auto,reset)%x20%<(60,trunc)%s"
+  delete = "!f() { git branch -D $1; git push origin --delete $1; }; f"
+  sync = !git fetch --all --prune && git merge --ff-only upstream/`git rev-parse --abbrev-ref HEAD` && git push --set-upstream origin `git rev-parse --abbrev-ref HEAD`
+  date = !GIT_COMMITTER_DATE=\"`date`\" git commit --amend --no-edit --date \"`date`\"
+  files = "!f() { git diff --name-status $1^ $1; }; f"
+  top = !git log --oneline --graph --decorate `git rev-parse --abbrev-ref HEAD` ^origin/`git rev-parse --abbrev-ref HEAD`
+  push-upstream = !git push --set-upstream origin `git rev-parse --abbrev-ref HEAD`
+  set-upstream = !git branch --set-upstream-to origin/`git rev-parse --abbrev-ref HEAD`
+  rbi = rebase -i
+  lg = "!f() { orgrepo=$(git remote -v | grep 'upstream.*fetch' | sed -E 's/.*github\\.com[:\\/]([^\\. ]+).*/\\1/' | sed -E 's/\\//\\\\\\//'); git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | sed -E \"s/Merge pull request #/Merge PR http:\\/\\/github.com\\/$orgrepo\\/pull\\//\"; }; f"
+  # lg = "!f() { git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | sed -E 's/Merge pull request #/Merge PR http:\\/\\/github.com\\/puppetlabs\\/helloworld\\/pull\\//'; }; f"
+  merge-long = merge --no-ff --log=999
+  sweep = !git clean -df && git checkout .
+  ignore = update-index --assume-unchanged
+  unignore = update-index --no-assume-unchanged
+  pop-k = !git commit -m "staged" && git stash pop && git reset --soft HEAD~  # can be used after `git stash -k` to pop the stash while maintaining staged files
+  # stash-staged = !git commit -m "staged" && git stash save unstaged && git reset HEAD~ && git stash save staged && git stash pop stash@{1}  ## TODO: Only attempt this if there are staged files, otherwise the reset could be damaging
+  remove-all-except = "!f() { git filter-branch -f --prune-empty --index-filter 'git rm --cached -r -q -- . && git reset -q $GIT_COMMIT -- $@' -- --all }; f"
+  diff-image = "!f() { GIT_DIFF_IMAGE_ENABLED=1 git diff \"$@\"; }; f"
+  pickaxe = log -p -S
+[credential]
+  helper = osxkeychain
+[user]
+	email = ward@digivine.com
+  name = Nathan Ward
+	signingkey = 5C555ADE1033D2BF
+[github]
+  user = vine77
+[core]
+  excludesfile = /Users/nathan/.gitignore
+	attributesfile = ~/.gitattributes
+[push]
+  default = simple
+[fetch]
+  prune = true
+[gpg]
+	program = gpg2
+[diff "image"]
+	command = ~/src/git-diff-image/git_diff_image
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
