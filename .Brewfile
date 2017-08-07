@@ -1,0 +1,25 @@
+tap "caskroom/cask"
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "homebrew/services"
+brew "bash-completion"
+brew "docker"
+brew "git"
+brew "hub"
+brew "mas"
+brew "node"
+cask "alfred"
+cask "atom"
+cask "docker"
+cask "github-desktop"
+cask "gitify"
+cask "grandperspective"
+cask "hipchat"
+cask "iterm2"
+cask "minikube"
+cask "rowanj-gitx"
+cask "shiftit"
+mas "Be Focused Pro", id: 961632517
+mas "BreakTime", id: 427475982
+mas "GarageBand", id: 682658836
+mas "Transmit", id: 403388562
