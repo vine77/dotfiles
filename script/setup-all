@@ -1,5 +1,0 @@
-ln -sfv .dotfiles/.Brewfile ~/.Brewfile
-ln -sfv .dotfiles/.bash_profile ~/.bash_profile
-ln -sfv .dotfiles/.bashrc ~/.bashrc
-ln -sfv .dotfiles/.gitconfig ~/.gitconfig
-ln -sfv .dotfiles/.gitignore ~/.gitignore

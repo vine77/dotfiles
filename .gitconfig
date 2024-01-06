@@ -1,7 +1,6 @@
 [alias]
   s = status
   st = status
-  wow = status
   c = checkout
   co = checkout
   a = add
@@ -19,12 +18,10 @@
   tags = tag
   prune-tags = !git tag -l | xargs git tag -d && git fetch -t
   changes = "!f() { if [ $1 ]; then git diff $1~ $1; else git diff HEAD~ HEAD; fi }; f"
-  props = blame
   staged = diff --staged
   amend = commit --amend --no-edit
   continue = rebase --continue
   abort = rebase --abort
-  yolo = push --force
   sync = !git fetch --all --prune && git merge --ff-only upstream/`git rev-parse --abbrev-ref HEAD` && git submodule update --init --recursive && git push --set-upstream origin `git rev-parse --abbrev-ref HEAD`
   oneline = log --date=short --no-merges --invert-grep --grep=^Build --grep=^Version --format="%C(auto)%h%x20%<(10,trunc)%an%x20%C(auto,blue)%ad%C(auto,reset)%x20%<(70,trunc)%s"
   fuller = log -n1 --format=fuller
@@ -50,29 +47,3 @@
   fetchall = fetch --all --prune
   resetupstream = !git reset --hard upstream/`git rev-parse --abbrev-ref HEAD`
   fr = !git fetch --all --prune && git reset --hard upstream/`git rev-parse --abbrev-ref HEAD`
-[credential]
-  helper = osxkeychain
-[user]
-	email = nathan.ward@puppet.com
-	name = Nathan Ward
-	# signingKey = BBA9B262606EE7EE
-[github]
-  user = vine77
-[core]
-  excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
-[push]
-  default = simple
-[fetch]
-  prune = true
-[diff "image"]
-	command = ~/src/git-diff-image/git_diff_image
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[commit]
-	# gpgSign = true
-[rerere]
-	enabled = false
