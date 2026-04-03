@@ -1,10 +1,13 @@
 tap "oven-sh/bun"
+tap "vine77/subs"
 # GitHub command-line tool
 brew "gh"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
+# Download subtitles with yt-dlp or clean them up with OpenAI
+brew "vine77/subs/subs", args: ["HEAD"]
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Ghostty-based terminal with vertical tabs and notifications for AI coding agents
