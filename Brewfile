@@ -1,5 +1,7 @@
 tap "oven-sh/bun"
 tap "vine77/subs"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # GitHub command-line tool
 brew "gh"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
