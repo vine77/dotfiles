@@ -29,6 +29,8 @@ cask "notion"
 cask "obsidian"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
+# Turn any browser into your terminal
+cask "vibetunnel"
 # Open-source code editor
 cask "visual-studio-code"
 vscode "amodio.tsl-problem-matcher"
