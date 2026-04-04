@@ -4,6 +4,8 @@ tap "vine77/subs"
 brew "bat"
 # GitHub command-line tool
 brew "gh"
+# Clone of ls with colorful output, file type icons, and more
+brew "lsd"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
