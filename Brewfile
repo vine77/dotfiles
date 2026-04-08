@@ -4,6 +4,8 @@ tap "vine77/subs"
 brew "bat"
 # GitHub command-line tool
 brew "gh"
+# CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
+brew "googleworkspace-cli"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
 # Cross-shell prompt for astronauts
