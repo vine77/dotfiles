@@ -8,6 +8,8 @@ brew "gh"
 brew "googleworkspace-cli"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
