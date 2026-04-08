@@ -25,6 +25,8 @@ cask "claude"
 # Ghostty-based terminal with vertical tabs and notifications for AI coding agents
 cask "cmux"
 cask "font-hasklug-nerd-font"
+# Set of tools to manage resources and applications hosted on Google Cloud
+cask "gcloud-cli"
 # Web browser
 cask "google-chrome"
 # Terminal emulator as alternative to Apple's Terminal app
