@@ -14,6 +14,8 @@ brew "stow"
 brew "oven-sh/bun/bun"
 # Download subtitles with yt-dlp or clean them up with OpenAI
 brew "vine77/subs/subs", args: ["HEAD"]
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Ghostty-based terminal with vertical tabs and notifications for AI coding agents
