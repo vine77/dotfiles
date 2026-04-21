@@ -26,6 +26,8 @@ cask "chatgpt"
 cask "claude"
 # Ghostty-based terminal with vertical tabs and notifications for AI coding agents
 cask "cmux"
+# Client for the Dropbox cloud storage service
+cask "dropbox"
 cask "font-hasklug-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
@@ -99,3 +101,4 @@ vscode "tamasfe.even-better-toml"
 vscode "tyriar.sort-lines"
 vscode "unifiedjs.vscode-mdx"
 vscode "vscodevim.vim"
+go "github.com/catilac/plistwatch"
