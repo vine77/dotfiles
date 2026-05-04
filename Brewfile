@@ -20,6 +20,8 @@ brew "stow"
 brew "oven-sh/bun/bun"
 # Download subtitles with yt-dlp or clean them up with OpenAI
 brew "vine77/subs/subs", args: ["HEAD"]
+# E-books management software
+cask "calibre"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
 # Anthropic's official Claude AI desktop app
