@@ -148,6 +148,25 @@ npm-why() {
 
 skills() { npx skills "$@" --global --yes --agent claude-code; }
 
+# Dotfiles management — `dots` for the obvious day-to-day commands
+dots() {
+  case "${1:-}" in
+    update) (cd "$DOTFILES_DIR" && git pull --rebase --autostash && ./bootstrap.sh) ;;
+    push)   (cd "$DOTFILES_DIR" && git push) ;;
+    status) (cd "$DOTFILES_DIR" && git status -sb) ;;
+    cd)     cd "$DOTFILES_DIR" ;;
+    ""|help)
+            echo "usage: dots update|push|status|cd"
+            echo "  update  pull latest and re-run bootstrap (packages + symlinks)"
+            echo "  push    publish this machine's ledger commits"
+            echo "  status  show repo status"
+            echo "  cd      go to the dotfiles repo" ;;
+    *)      echo "dots: unknown command '$1'" >&2
+            echo "usage: dots update|push|status|cd" >&2
+            return 1 ;;
+  esac
+}
+
 # Brewfile sync — keeps this OS's Brewfile ledger up to date
 sync_brewfile() {
   [[ -n "$HOMEBREW_BUNDLE_FILE" ]] || { echo "HOMEBREW_BUNDLE_FILE not set"; return 1 }

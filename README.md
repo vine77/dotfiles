@@ -28,6 +28,18 @@ way to `*.pre-dotfiles`), and applies macOS defaults on macOS only.
 - `bootstrap.sh` — one-command setup, safe to re-run.
 - `macos-defaults.sh` — macOS system preferences.
 
+## Day to day
+
+The `dots` command (defined in `zsh/.zshrc`, so it's on every machine):
+
+- `dots update` — pull the latest and re-run bootstrap: installs new Brewfile
+  entries and re-stows symlinks. Run this after another machine pushes.
+- `dots push` — publish this machine's auto-committed ledger updates.
+- `dots status` / `dots cd` — quick repo status / jump to the repo.
+
+Installing packages needs no command at all: `brew install foo` auto-updates
+and commits this OS's Brewfile via the wrapper in `.zshrc`.
+
 ## Adding things
 
 - New config: `mkdir <pkg>`, place files with their in-home paths (e.g.
