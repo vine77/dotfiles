@@ -33,7 +33,9 @@ way to `*.pre-dotfiles`), and applies macOS defaults on macOS only.
 The `dots` command (defined in `zsh/.zshrc`, so it's on every machine):
 
 - `dots update` — pull the latest and re-run bootstrap: installs new Brewfile
-  entries and re-stows symlinks. Run this after another machine pushes.
+  entries and re-stows symlinks. Run this after another machine pushes. Also
+  reports drift (packages installed here but missing from this OS's ledger)
+  without uninstalling anything.
 - `dots push` — publish this machine's auto-committed ledger updates.
 - `dots status` / `dots cd` — quick repo status / jump to the repo.
 

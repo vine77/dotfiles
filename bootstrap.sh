@@ -26,6 +26,14 @@ esac
 echo "==> Installing from ${HOMEBREW_BUNDLE_FILE##*/}..."
 brew bundle
 
+# Report ledger drift (installed but not in the Brewfile) — informational only
+drift="$(brew bundle cleanup 2>/dev/null | sed -e '/^Would `brew cleanup`:/,$d' -e '/^Run `/d')" || true
+if [[ -n "$drift" ]]; then
+  echo "==> Drift from ${HOMEBREW_BUNDLE_FILE##*/}:"
+  echo "$drift" | sed 's/^/    /'
+  echo "    (drop: brew uninstall <pkg> — keep: sync_brewfile adopts it into the ledger)"
+fi
+
 # Stow dotfiles — move aside any real files that would block linking
 echo "==> Linking dotfiles..."
 for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global"; do
