@@ -1,12 +1,29 @@
-# Environment — PATH (first entry wins)
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+# Environment — PATH (each line prepends; brew shellenv below ends up first)
+[[ -d /opt/homebrew/opt/ruby/bin ]] && export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Homebrew — macOS (/opt/homebrew) or Linux (linuxbrew); first found wins
+for _brew in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
+  [[ -x $_brew ]] && eval "$($_brew shellenv)" && break
+done
+unset _brew
 
 # Dotfiles
 export DOTFILES_DIR="$HOME/src/dotfiles"
+
+# Per-OS Brewfile ledger — `brew bundle` reads it, sync_brewfile writes it
+case "$OSTYPE" in
+  darwin*) export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.macos" ;;
+  linux*)  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.linux" ;;
+esac
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_all_dups share_history inc_append_history
 
 # Terminal title — show current directory name
 update_terminal_cwd() { echo -ne "\033]0;${PWD##*/}\007" }
@@ -16,11 +33,11 @@ update_terminal_cwd
 
 # Completions
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  FPATH="$HOME/.docker/completions:$FPATH"
-  autoload -Uz compinit && compinit -i
-  zmodload -i zsh/complist
+  FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
 fi
+[[ -d "$HOME/.docker/completions" ]] && FPATH="$HOME/.docker/completions:$FPATH"
+autoload -Uz compinit && compinit -i
+zmodload -i zsh/complist
 
 # Docker compose service name completion
 _docker_compose_custom_completion() {
@@ -44,15 +61,24 @@ alias v="vim -O"
 alias c=code
 alias g=git
 alias d=docker
+alias reload="source ~/.zshrc"
 
-# Aliases — modern CLI replacements
-alias cat=bat
-alias cats='bat --paging=never'
-alias ls="lsd -lA --date '+%Y-%m-%d %H:%M:%S'"
+# Aliases — modern CLI replacements (guarded: only if installed)
+if command -v bat &>/dev/null; then
+  alias cat='bat'
+  alias cats='bat --paging=never'
+elif command -v batcat &>/dev/null; then  # Ubuntu's apt names bat's binary batcat
+  alias cat='batcat'
+  alias cats='batcat --paging=never'
+fi
+command -v lsd &>/dev/null && alias ls="lsd -lA --date '+%Y-%m-%d %H:%M:%S'"
 
 # Aliases — utilities
-alias copy=pbcopy
-alias flush="sudo dscacheutil -flushcache"
+if command -v pbcopy &>/dev/null; then
+  alias copy=pbcopy
+elif command -v wl-copy &>/dev/null; then
+  alias copy=wl-copy
+fi
 alias mirror="wget --mirror --no-parent --convert-links --page-requisites --adjust-extension"
 alias weather="curl -4 wttr.in/portland"
 alias dif='colordiff --width=`tput cols` -y "$@"'
@@ -99,13 +125,6 @@ gpt() {
   [ -n "$output" ] && echo "$output" || (echo "Error" && return 1)
 }
 
-whisper() {
-  whisper-cli --no-prints --no-timestamps \
-    --model "$(brew --prefix whisper-cpp)/share/whisper-cpp/models/ggml-large-v3-turbo-q5_0.bin" \
-    "$@" | sed -E '1{/^$/d;};s/^[[:space:]]+//'
-  echo
-}
-
 npms() { npm start; }
 
 npm-why() {
@@ -129,10 +148,12 @@ npm-why() {
 
 skills() { npx skills "$@" --global --yes --agent claude-code; }
 
-# Brewfile sync — keeps Brewfile in dotfiles up to date
+# Brewfile sync — keeps this OS's Brewfile ledger up to date
 sync_brewfile() {
-  command brew bundle dump --file="$DOTFILES_DIR/Brewfile" --force --describe
-  (cd "$DOTFILES_DIR" && git add Brewfile && git diff --cached --quiet Brewfile || git commit -m "Update Brewfile")
+  [[ -n "$HOMEBREW_BUNDLE_FILE" ]] || { echo "HOMEBREW_BUNDLE_FILE not set"; return 1 }
+  command brew bundle dump --force
+  # commit only the ledger (pathspec) so unrelated staged changes never ride along
+  (cd "$DOTFILES_DIR" && git add "$HOMEBREW_BUNDLE_FILE" && git diff --cached --quiet -- "$HOMEBREW_BUNDLE_FILE" || git commit -m "Update ${HOMEBREW_BUNDLE_FILE:t}" -- "$HOMEBREW_BUNDLE_FILE")
 }
 
 brew() {
@@ -145,21 +166,39 @@ brew() {
   return $exit_code
 }
 
-mas() {
-  command mas "$@"
-  local exit_code=$?
-  if [[ $exit_code -eq 0 && "$1" =~ ^(install|uninstall|purchase)$ ]]; then
-    echo "Syncing Brewfile..."
-    sync_brewfile
-  fi
-  return $exit_code
-}
+# macOS only
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias flush="sudo dscacheutil -flushcache"
+
+  whisper() {
+    whisper-cli --no-prints --no-timestamps \
+      --model "$(brew --prefix whisper-cpp)/share/whisper-cpp/models/ggml-large-v3-turbo-q5_0.bin" \
+      "$@" | sed -E '1{/^$/d;};s/^[[:space:]]+//'
+    echo
+  }
+
+  mas() {
+    command mas "$@"
+    local exit_code=$?
+    if [[ $exit_code -eq 0 && "$1" =~ ^(install|uninstall|purchase)$ ]]; then
+      echo "Syncing Brewfile..."
+      sync_brewfile
+    fi
+    return $exit_code
+  }
+fi
+
+# bun (standalone install; on macOS bun comes from brew instead)
+if [[ -d "$HOME/.bun" ]]; then
+  export BUN_INSTALL="$HOME/.bun"
+  export PATH="$BUN_INSTALL/bin:$PATH"
+  [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+fi
 
 # Secrets (API keys, database URIs, etc.)
 [[ -f ~/.secrets ]] && source ~/.secrets
 
-# Starship prompt
-eval "$(starship init zsh)"
-
-# direnv (per-directory env; auto-activates .venv via .envrc)
-eval "$(direnv hook zsh)"
+# Prompt & per-directory env (guarded: only if installed)
+command -v starship &>/dev/null && eval "$(starship init zsh)"
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+command -v uv &>/dev/null && eval "$(uv generate-shell-completion zsh)" 2>/dev/null
