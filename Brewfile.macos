@@ -2,14 +2,14 @@ tap "oven-sh/bun"
 tap "vine77/subs"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Modern, maintained replacement for ls
+brew "eza"
 # GitHub command-line tool
 brew "gh"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
 brew "googleworkspace-cli"
-# Clone of ls with colorful output, file type icons, and more
-brew "lsd"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # Cross-shell prompt for astronauts
