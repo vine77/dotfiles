@@ -71,7 +71,14 @@ elif command -v batcat &>/dev/null; then  # Ubuntu's apt names bat's binary batc
   alias cat='batcat'
   alias cats='batcat --paging=never'
 fi
-command -v lsd &>/dev/null && alias ls="lsd -lA --date '+%Y-%m-%d %H:%M:%S'"
+# ls stays unaliased (scripts and agents get plain coreutils output)
+if command -v eza &>/dev/null; then
+  # default to "." — pathless eza reads filenames from stdin when stdin isn't a TTY
+  ll() { eza -la --group-directories-first --git --icons=auto "${@:-.}" }
+  lt() { eza --tree --level=2 --icons=auto "${@:-.}" }
+else
+  alias ll='ls -lAh'
+fi
 
 # Aliases — utilities
 if command -v pbcopy &>/dev/null; then
