@@ -4,8 +4,6 @@ brew "bat"
 brew "eza"
 # GitHub command-line tool
 brew "gh"
-# Clone of ls with colorful output, file type icons, and more
-brew "lsd"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
