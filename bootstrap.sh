@@ -1,7 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-DOTFILES_DIR="$HOME/src/dotfiles"
+# Repo root = wherever this script lives (physical path, for symlink checks below)
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 cd "$DOTFILES_DIR"
 
 # Homebrew — install if missing, then load into this shell
@@ -38,16 +39,21 @@ fi
 echo "==> Linking dotfiles..."
 for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global"; do
   [[ -e "$f" || -L "$f" ]] || continue
-  # leave stow's own links (relative, into this repo); move anything else aside
-  if [[ "$(readlink "$f" 2>/dev/null || true)" != src/dotfiles/* ]]; then
-    echo "    moving existing $f to $f.pre-dotfiles"
-    mv "$f" "$f.pre-dotfiles"
+  link="$(readlink "$f" 2>/dev/null || true)"
+  target="$(readlink -f "$f" 2>/dev/null || true)"
+  # leave stow's own links (relative, resolving into this repo); move anything
+  # else aside — absolute links block stow even when they point into the repo
+  if [[ "$link" == /* || "$target" != "$DOTFILES_DIR"/* ]]; then
+    backup="$f.pre-dotfiles"
+    while [[ -e "$backup" || -L "$backup" ]]; do backup="$backup.$(date +%s)"; done
+    echo "    moving existing $f to $backup"
+    mv "$f" "$backup"
   fi
 done
 stow -v -R --target="$HOME" git zsh
 
 # Remind about migration backups until they're reviewed and removed
-backups="$(ls "$HOME"/.*.pre-dotfiles 2>/dev/null)" || true
+backups="$(ls "$HOME"/.*.pre-dotfiles* 2>/dev/null)" || true
 if [[ -n "$backups" ]]; then
   echo "==> Config backups from stow migration (fold in anything you still want, then delete):"
   echo "$backups" | sed 's/^/    /'
