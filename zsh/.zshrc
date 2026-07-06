@@ -1,5 +1,4 @@
 # Environment — PATH (each line prepends; brew shellenv below ends up first)
-[[ -d /opt/homebrew/opt/ruby/bin ]] && export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
@@ -107,7 +106,6 @@ alias untar="tar -zxvf"
 alias uuidgen='uuidgen | tr "[:upper:]" "[:lower:]"'
 alias python="python3"
 alias pip="pip3"
-alias collapse="sed '/./,/^$/!d'"
 alias generate-cert="openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem"
 
 # Aliases — npm
