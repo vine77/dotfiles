@@ -25,8 +25,12 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt hist_ignore_all_dups share_history inc_append_history
 
-# Terminal title — show current directory name
-update_terminal_cwd() { echo -ne "\033]0;${PWD##*/}\007" }
+# Terminal title — show current directory name (only when stdout is a terminal,
+# so piped/captured shells don't get escape codes glued to their output)
+update_terminal_cwd() {
+  [[ -t 1 ]] || return 0
+  echo -ne "\033]0;${PWD##*/}\007"
+}
 autoload -U add-zsh-hook
 add-zsh-hook chpwd update_terminal_cwd
 update_terminal_cwd
