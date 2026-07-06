@@ -2,6 +2,8 @@ tap "oven-sh/bun"
 tap "vine77/subs"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Color-highlighted diff(1) output
+brew "colordiff"
 # Modern, maintained replacement for ls
 brew "eza"
 # GitHub command-line tool
@@ -10,12 +12,20 @@ brew "gh"
 brew "go"
 # CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
 brew "googleworkspace-cli"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Display word differences between text files
+brew "wdiff"
+# Port of OpenAI's Whisper model in C/C++
+brew "whisper-cpp"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 # Download subtitles with yt-dlp or clean them up with OpenAI
