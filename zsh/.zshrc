@@ -31,6 +31,10 @@ autoload -U add-zsh-hook
 add-zsh-hook chpwd update_terminal_cwd
 update_terminal_cwd
 
+# Report cwd to VTE terminals via OSC 7 (Ptyxis tab/session restore, new-tab
+# inherits directory) — Linux only; macOS Terminal/iTerm don't need it
+[[ -r /etc/profile.d/vte-2.91.sh ]] && source /etc/profile.d/vte-2.91.sh
+
 # Completions
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
