@@ -1,13 +1,25 @@
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Color-highlighted diff(1) output
+brew "colordiff"
 # Modern, maintained replacement for ls
 brew "eza"
 # GitHub command-line tool
 brew "gh"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Display word differences between text files
+brew "wdiff"
+# Port of OpenAI's Whisper model in C/C++
+brew "whisper-cpp"
 # Command-line copy/paste utilities for Wayland
 brew "wl-clipboard"
 cask "font-hasklug-nerd-font"
