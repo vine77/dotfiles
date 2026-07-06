@@ -193,7 +193,7 @@ sync_brewfile() {
 brew() {
   command brew "$@"
   local exit_code=$?
-  if [[ $exit_code -eq 0 && "$1" =~ ^(install|uninstall|rmtree|tap|untap)$ ]]; then
+  if [[ $exit_code -eq 0 && "$1" =~ ^(install|reinstall|uninstall|remove|rm|tap|untap)$ ]]; then
     echo "Syncing Brewfile..."
     sync_brewfile
   fi
