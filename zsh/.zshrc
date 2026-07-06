@@ -96,7 +96,7 @@ elif command -v wl-copy &>/dev/null; then
 fi
 alias mirror="wget --mirror --no-parent --convert-links --page-requisites --adjust-extension"
 alias weather="curl -4 wttr.in/portland"
-alias dif='colordiff --width=`tput cols` -y "$@"'
+alias dif='colordiff --width=$(tput cols) -y'
 alias wdif="wdiff -n -w $'\033[30;41m' -x $'\033[0m' -y $'\033[30;42m' -z $'\033[0m'"
 alias untar="tar -zxvf"
 alias uuidgen='uuidgen | tr "[:upper:]" "[:lower:]"'
