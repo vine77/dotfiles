@@ -239,16 +239,27 @@ brew() {
   return $exit_code
 }
 
+# Transcribe audio. Models live outside the brew keg (upgrades wipe keg files)
+# and download on first use. Override: WHISPER_MODEL=tiny (etc.), WHISPER_MODEL_DIR.
+whisper() {
+  local model_dir="${WHISPER_MODEL_DIR:-$HOME/.local/share/whisper-models}"
+  local model="${WHISPER_MODEL:-large-v3-turbo-q5_0}"
+  local model_file="$model_dir/ggml-$model.bin"
+  if [[ ! -f "$model_file" ]]; then
+    echo "whisper: downloading ggml-$model.bin to $model_dir (one-time)..." >&2
+    mkdir -p "$model_dir"
+    curl -L --fail --progress-bar -o "$model_file" \
+      "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-$model.bin" \
+      || { rm -f "$model_file"; return 1 }
+  fi
+  whisper-cli --no-prints --no-timestamps --model "$model_file" "$@" \
+    | sed -E '1{/^$/d;};s/^[[:space:]]+//'
+  echo
+}
+
 # macOS only
 if [[ "$OSTYPE" == darwin* ]]; then
   alias flush="sudo dscacheutil -flushcache"
-
-  whisper() {
-    whisper-cli --no-prints --no-timestamps \
-      --model "$(brew --prefix whisper-cpp)/share/whisper-cpp/models/ggml-large-v3-turbo-q5_0.bin" \
-      "$@" | sed -E '1{/^$/d;};s/^[[:space:]]+//'
-    echo
-  }
 
   mas() {
     command mas "$@"
