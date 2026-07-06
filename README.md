@@ -25,8 +25,9 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
   `HOMEBREW_BUNDLE_FILE` at this OS's file, so bare `brew bundle` and
   `brew bundle dump` read/write the right one. Each machine only ever dumps to
   its own ledger, so the `brew()` auto-sync wrapper (which dumps and commits
-  after installs/uninstalls) is safe on every platform. A new platform is just
-  one more `Brewfile.<os>`.
+  after installs/uninstalls) is safe on every platform. A new platform needs
+  one more `Brewfile.<os>` plus a matching case branch in `zsh/.zshrc` and
+  `bootstrap.sh`.
 - `bootstrap.sh` — one-command setup, safe to re-run.
 - `macos-defaults.sh` — macOS system preferences.
 
