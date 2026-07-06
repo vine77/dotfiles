@@ -127,7 +127,7 @@ gpt() {
   local user_message=""
   [ -p /dev/stdin ] && user_message="$(cat -)"
   if [ -n "$1" ]; then
-    [ -z "$user_message" ] && user_message="$1" || user_message="${user_message}\n\n$1"
+    [ -z "$user_message" ] && user_message="$1" || user_message="${user_message}"$'\n\n'"$1"
   fi
   [ -z "$user_message" ] && echo "Error: No message provided" && return 1
   output=$(curl -s "https://api.openai.com/v1/chat/completions" \
