@@ -12,7 +12,9 @@ cd ~/src/dotfiles && ./bootstrap.sh
 
 `bootstrap.sh` is idempotent: it installs Homebrew if missing, installs this
 OS's Brewfile, symlinks the stow packages (backing up any real files in the
-way to `*.pre-dotfiles`), and applies macOS defaults on macOS only.
+way to `*.pre-dotfiles`), and applies macOS defaults on macOS only. It keeps
+reminding you about `*.pre-dotfiles` backups on every run until you've folded
+in anything worth keeping (machine-local PATH entries, keys) and deleted them.
 
 ## Layout
 

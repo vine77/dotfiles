@@ -46,6 +46,13 @@ for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global"; do
 done
 stow -v -R --target="$HOME" git zsh
 
+# Remind about migration backups until they're reviewed and removed
+backups="$(ls "$HOME"/.*.pre-dotfiles 2>/dev/null)" || true
+if [[ -n "$backups" ]]; then
+  echo "==> Config backups from stow migration (fold in anything you still want, then delete):"
+  echo "$backups" | sed 's/^/    /'
+fi
+
 # macOS defaults
 if [[ "$OSTYPE" == darwin* ]]; then
   echo "==> Applying macOS defaults..."
