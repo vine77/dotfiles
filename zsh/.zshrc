@@ -130,11 +130,12 @@ gpt() {
     [ -z "$user_message" ] && user_message="$1" || user_message="${user_message}"$'\n\n'"$1"
   fi
   [ -z "$user_message" ] && echo "Error: No message provided" && return 1
+  local model="${OPENAI_MODEL:-gpt-5}"  # API requires a model; override via OPENAI_MODEL
   output=$(curl -s "https://api.openai.com/v1/chat/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
-    -d "$(jq -n --arg user_message "$user_message" '{
-      model: "gpt-4o",
+    -d "$(jq -n --arg user_message "$user_message" --arg model "$model" '{
+      model: $model,
       messages: [{ role: "user", content: $user_message }]
     }')" | jq -r '.choices[0].message.content')
   [ -n "$output" ] && echo "$output" || (echo "Error" && return 1)
