@@ -102,7 +102,7 @@ alias mirror="wget --mirror --no-parent --convert-links --page-requisites --adju
 alias weather="curl -4 wttr.in/portland"
 alias dif='colordiff --width=$(tput cols) -y'
 alias wdif="wdiff -n -w $'\033[30;41m' -x $'\033[0m' -y $'\033[30;42m' -z $'\033[0m'"
-alias untar="tar -zxvf"
+alias untar="tar -xvf"  # tar auto-detects compression on extract (gz/bz2/xz/zst)
 alias uuidgen='uuidgen | tr "[:upper:]" "[:lower:]"'
 alias python="python3"
 alias pip="pip3"
