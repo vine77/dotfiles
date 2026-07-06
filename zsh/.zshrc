@@ -44,7 +44,12 @@ if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
 fi
 [[ -d "$HOME/.docker/completions" ]] && FPATH="$HOME/.docker/completions:$FPATH"
-autoload -Uz compinit && compinit -i
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh-24) ]]; then
+  compinit -C  # dump is <24h old: skip the security scan (~150ms on slow disks)
+else
+  compinit -i  # full scan, regenerates the dump
+fi               # new completions not showing? rm ~/.zcompdump and reopen
 zmodload -i zsh/complist
 
 # Docker compose service name completion
