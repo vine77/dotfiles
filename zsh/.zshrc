@@ -165,6 +165,44 @@ npm-why() {
 
 skills() { npx skills "$@" --global --yes --agent claude-code; }
 
+# amp [minutes|off|status] — Amphetamine-style: keep laptop awake through
+# lid-close/unplug for N minutes (default 10), then normal sleep rules return.
+# Survives the invoking SSH session ending (nohup); self-expires as the safety.
+amp() {
+  local min=${1:-10} pidfile=/tmp/amp-$USER.pid
+  case $min in
+    status)
+      if [[ $OSTYPE == darwin* ]]; then
+        pmset -g | grep -i sleepdisabled
+      else
+        systemd-inhibit --list --no-pager | grep -w amp || echo "amp: no lock active"
+      fi
+      return ;;
+    off)
+      [[ -f $pidfile ]] && sudo kill "$(command cat "$pidfile")" 2>/dev/null
+      rm -f "$pidfile"
+      # always reset on macOS — a stranded disablesleep flag must never survive
+      [[ $OSTYPE == darwin* ]] && sudo pmset -a disablesleep 0
+      echo "amp: off — normal sleep rules restored"
+      return ;;
+    <->) ;;
+    *)  echo "usage: amp [minutes|off|status]" >&2; return 1 ;;
+  esac
+  [[ -f $pidfile ]] && amp off >/dev/null
+  if [[ $OSTYPE == darwin* ]]; then
+    # single root shell owns arm→timer→disarm, so expiry never hits a sudo prompt
+    sudo -v || return
+    nohup sudo sh -c "pmset -a disablesleep 1; sleep $((min*60)); pmset -a disablesleep 0" \
+      >/dev/null 2>&1 & echo $! > "$pidfile"; disown
+  else
+    # sudo also bypasses polkit denying lid inhibitors to non-local (SSH) sessions
+    nohup sudo systemd-inhibit --what=handle-lid-switch:sleep --who=amp \
+      --why="amp: awake for $min min" sleep $((min*60)) \
+      >/dev/null 2>&1 & echo $! > "$pidfile"; disown
+  fi
+  echo "amp: awake for $min min through lid close/unplug — 'amp off' to cancel"
+}
+
 # Dotfiles management — `dots` for the obvious day-to-day commands
 dots() {
   case "${1:-}" in
