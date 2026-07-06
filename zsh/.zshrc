@@ -114,12 +114,9 @@ alias ccu="npx -y ccusage@latest"
 alias yolo="claude --dangerously-skip-permissions"
 
 # Functions
+# thin wrapper over the `git br` alias (.gitconfig) — single source of the format
 br() {
-  git for-each-ref --sort=committerdate refs/heads/ \
-    --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' \
-    --color=always \
-  | awk '{$1=$1};1' \
-  | cut -c -$COLUMNS
+  git br --color=always | awk '{$1=$1};1' | cut -c -$(( COLUMNS > 0 ? COLUMNS : 120 ))
 }
 
 gpt() {
