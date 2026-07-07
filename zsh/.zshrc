@@ -111,6 +111,9 @@ alias generate-cert="openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -
 # Aliases — npm
 alias upgrade="npx npm-check-updates --upgrade"
 alias server="npx http-server --port 3030 --cors -c-1"
+alias supabase="npx -y supabase@latest"
+alias openapi-docs="npx @redocly/cli preview-docs backend/openapi.json"
+alias openapi-mock="npx @stoplight/prism-cli mock https://raw.githack.com/OAI/OpenAPI-Specification/main/tests/v3.0/pass/petstore-expanded.yaml"
 
 # Aliases — AI
 alias ccu="npx -y ccusage@latest"
