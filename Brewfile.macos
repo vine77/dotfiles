@@ -1,74 +1,179 @@
-tap "oven-sh/bun"
-tap "vine77/subs"
+tap "oven-sh/bun", trusted: true
+tap "vine77/subs", trusted: true
+# Download with resuming and segmented downloading
+brew "aria2"
+# Official Amazon AWS command-line interface
+brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Cross-platform make
+brew "cmake"
 # Color-highlighted diff(1) output
 brew "colordiff"
+# Secure runtime for JavaScript and TypeScript
+brew "deno"
+# Load/unload environment variables based on $PWD
+brew "direnv"
 # Modern, maintained replacement for ls
 brew "eza"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
 # GitHub command-line tool
 brew "gh"
-# Open source programming language to build simple/reliable/efficient software
-brew "go"
+# Distributed revision control system
+brew "git"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
 # CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
 brew "googleworkspace-cli"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Mac App Store command-line interface
+brew "mas"
+# Simple tool to make locally trusted development certificates
+brew "mkcert"
+# Remote terminal application
+brew "mosh"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# PostgreSQL syntax beautifier
+brew "pgformatter"
+# Data loading tool for PostgreSQL
+brew "pgloader"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Object-relational database system
+brew "postgresql@18", link: true
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Safe, concurrent, practical language
+brew "rust"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Terminal multiplexer
+brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
 # Vi 'workalike' with many additional features
 brew "vim"
+# Watch files and take action when they change
+brew "watchman"
 # Display word differences between text files
 brew "wdiff"
 # Port of OpenAI's Whisper model in C/C++
 brew "whisper-cpp"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 # Download subtitles with yt-dlp or clean them up with OpenAI
 brew "vine77/subs/subs", args: ["HEAD"]
+# Sound and music editor
+cask "ableton-live-suite"
+# Collection of apps and services for photography, design, video, web, and UX
+cask "adobe-creative-cloud"
+# Cross platform SQL editor and database management app
+cask "beekeeper-studio"
+# Display management tool
+cask "betterdisplay"
 # E-books management software
 cask "calibre"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
+# Free and open-source web browser
+cask "chromium"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Ghostty-based terminal with vertical tabs and notifications for AI coding agents
 cask "cmux"
+# OpenAI's coding agent that runs in your terminal
+cask "codex"
+# Write, edit, and chat about your code with AI
+cask "cursor"
+# Voice and text chat software
+cask "discord"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
+# Collaborative team software
+cask "figma"
 cask "font-hasklug-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Git GUI
+cask "gitx"
 # Web browser
 cask "google-chrome"
+# Graphically shows disk usage within a file system
+cask "grandperspective"
+# Open-source video transcoder
+cask "handbrake-app"
+# Keyboard shortcuts for every button on your screen
+cask "homerow"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Free cross-platform office suite, fresh version
+cask "libreoffice"
+# Discover, download, and run local LLMs
+cask "lm-studio"
 # App to write, plan, collaborate, and get organised
 cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# Retro video game emulation
+cask "openemu"
+# Home media server
+cask "plex-media-server"
+# HTTP debugging proxy
+cask "proxyman"
+# Team communication and collaboration software
+cask "slack"
+# Music streaming service
+cask "spotify"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
+# Open-source BitTorrent client
+cask "transmission"
 # Turn any browser into your terminal
 cask "vibetunnel"
 # Open-source code editor
 cask "visual-studio-code"
+# Multimedia player
+cask "vlc"
+# Video communication and virtual meeting platform
+cask "zoom"
+mas "Amphetamine", id: 937984704
+mas "HP Smart", id: 1474276998
+mas "Pages", id: 361309726
+mas "Shazam", id: 897118787
+mas "Speedtest", id: 1153157709
+mas "The Unarchiver", id: 425424353
+vscode "amazonwebservices.codewhisperer-for-command-line-companion"
 vscode "amodio.tsl-problem-matcher"
 vscode "anthropic.claude-code"
 vscode "bradymholt.pgformatter"
 vscode "connor4312.css-theme-completions"
+vscode "cweijan.dbclient-jdbc"
+vscode "cweijan.vscode-mysql-client2"
 vscode "dbaeumer.vscode-eslint"
 vscode "denoland.vscode-deno"
 vscode "dtsvet.vscode-wasm"
+vscode "dzannotti.vscode-babel-coloring"
 vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
 vscode "expo.vscode-expo-tools"
 vscode "github.codespaces"
+vscode "github.copilot"
 vscode "github.copilot-chat"
 vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
@@ -99,8 +204,10 @@ vscode "ms-vscode.remote-server"
 vscode "ms-vscode.vscode-serial-monitor"
 vscode "ms-vscode.vscode-speech"
 vscode "ms-vsliveshare.vsliveshare"
+vscode "nativebase.nativebase-v3-vscode-extension"
 vscode "naumovs.color-highlight"
 vscode "openai.chatgpt"
+vscode "openai.openai-chatgpt-adhoc"
 vscode "qwtel.sqlite-viewer"
 vscode "redhat.vscode-xml"
 vscode "redhat.vscode-yaml"
@@ -112,5 +219,9 @@ vscode "stormwarning.json-template"
 vscode "tamasfe.even-better-toml"
 vscode "tyriar.sort-lines"
 vscode "unifiedjs.vscode-mdx"
+vscode "visualstudioexptteam.vscodeintellicode"
+vscode "vknabel.vscode-swiftformat"
 vscode "vscodevim.vim"
-go "github.com/catilac/plistwatch"
+vscode "wix.vscode-import-cost"
+uv "basedpyright"
+uv "ruff"
