@@ -23,6 +23,7 @@ node_modules
 *.swo
 *~
 .idea/
+*.code-workspace
 
 # Environment
 .env
