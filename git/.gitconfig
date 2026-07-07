@@ -19,12 +19,20 @@
 [rerere]
   enabled = true
 
+[fetch]
+  prune = true
+
+# SSH everywhere — pasted HTTPS GitHub URLs clone/push over SSH keys
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
+
 [alias]
   s = status
   st = status
   co = checkout
   a = add
   cm = commit
+  ch = cherry-pick
   b = branch
   d = diff
   br = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
@@ -35,6 +43,7 @@
   oneline = log --date=short --no-merges --invert-grep --grep=^Build --grep=^Version --format="%C(auto)%h%x20%<(10,trunc)%an%x20%C(auto,blue)%ad%C(auto,reset)%x20%<(70,trunc)%s"
   logme = log --date=short --author='Nathan Ward' --format="%C(auto)%h%x20%<(10,trunc)%an%x20%C(auto,blue)%ad%C(auto,reset)%x20%<(60,trunc)%s"
   fuller = log -n1 --format=fuller
+  line = log --oneline --graph --decorate
   changes = "!f() { if [ $1 ]; then git diff $1~ $1; else git diff HEAD~ HEAD; fi }; f"
   files = "!f() { git diff --name-status $1^ $1; }; f"
   ff = !git fetch --all --prune && git merge --ff-only origin/`git rev-parse --abbrev-ref HEAD` && git submodule update --init --recursive
