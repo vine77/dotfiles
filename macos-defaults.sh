@@ -25,6 +25,9 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 
+# Menu bar — tighten status item spacing (per-host; takes effect on re-login)
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 12
+
 # Screenshots
 defaults write com.apple.screencapture location -string "$HOME/Downloads"
 defaults write com.apple.screencapture type -string "png"
