@@ -32,6 +32,14 @@ brew "ocrmypdf"
 brew "poppler"
 # Cross-platform library for audio I/O
 brew "portaudio"
+# Object-relational database system
+brew "postgresql@18", link: true
+# Tools for and transforming and inspecting PDF files
+brew "qpdf"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Safe, concurrent, practical language
+brew "rust"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
