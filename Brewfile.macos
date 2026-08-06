@@ -47,6 +47,8 @@ cask "dropbox"
 cask "font-hasklug-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Git GUI
+cask "gitx"
 # Web browser
 cask "google-chrome"
 # Terminal emulator as alternative to Apple's Terminal app
