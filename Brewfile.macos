@@ -2,6 +2,8 @@ tap "oven-sh/bun", trusted: true
 tap "vine77/subs", trusted: true
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Dependency manager for Cocoa projects
+brew "cocoapods"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Modern, maintained replacement for ls
