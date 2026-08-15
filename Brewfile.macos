@@ -1,3 +1,4 @@
+tap "keith/formulae"
 tap "oven-sh/bun", trusted: true
 tap "vine77/subs", trusted: true
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -32,6 +33,7 @@ brew "stow"
 brew "tree"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+brew "keith/formulae/reminders-cli", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 # Download subtitles with yt-dlp or clean them up with OpenAI
