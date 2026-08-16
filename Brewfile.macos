@@ -33,6 +33,8 @@ brew "stow"
 brew "tree"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Port of OpenAI's Whisper model in C/C++
+brew "whisper-cpp"
 brew "keith/formulae/reminders-cli", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
