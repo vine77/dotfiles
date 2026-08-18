@@ -73,6 +73,7 @@ alias v="vim -O"
 alias c=code
 alias g=git
 alias d=docker
+alias play=afplay
 alias reload="source ~/.zshrc"
 
 # Aliases — modern CLI replacements (guarded: only if installed)
