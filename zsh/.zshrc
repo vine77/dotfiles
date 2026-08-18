@@ -12,6 +12,11 @@ unset _brew
 # Dotfiles
 export DOTFILES_DIR="$HOME/src/dotfiles"
 
+# Editor — without this, tools fall back to whatever they please (git happens
+# to pick `vi`, which is a vim symlink on macOS; others reach for nano or ed)
+export EDITOR=vim
+export VISUAL=vim
+
 # Per-OS Brewfile ledger — `brew bundle` reads it, sync_brewfile writes it
 case "$OSTYPE" in
   darwin*) export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.macos" ;;
