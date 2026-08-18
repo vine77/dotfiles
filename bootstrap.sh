@@ -37,7 +37,7 @@ fi
 
 # Stow dotfiles — move aside any real files that would block linking
 echo "==> Linking dotfiles..."
-for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.vimrc" "$HOME/.vim"; do
+for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.vimrc" "$HOME/.vim" "$HOME/.config/tmux"; do
   [[ -e "$f" || -L "$f" ]] || continue
   link="$(readlink "$f" 2>/dev/null || true)"
   target="$(readlink -f "$f" 2>/dev/null || true)"
@@ -50,7 +50,7 @@ for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.vim
     mv "$f" "$backup"
   fi
 done
-stow -v -R --target="$HOME" git vim zsh
+stow -v -R --target="$HOME" git tmux vim zsh
 
 # Remind about migration backups until they're reviewed and removed
 backups="$(ls "$HOME"/.*.pre-dotfiles* 2>/dev/null)" || true

@@ -18,7 +18,7 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
 
 ## Layout
 
-- `zsh/`, `git/`, `vim/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
+- `zsh/`, `git/`, `vim/`, `tmux/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
   both OSes: shared config is unconditional, tool-specific bits are guarded
   with `command -v`, and macOS-only pieces live in one `$OSTYPE` block.
 - `Brewfile.macos`, `Brewfile.linux` — per-OS package ledgers. `.zshrc` points
@@ -33,6 +33,10 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
   `defaults.vim`: macOS ships a system vimrc that sets `skip_defaults_vim`, so
   without this Vim starts with syntax highlighting off. Undo history is kept in
   `~/.local/state/vim/undo`, outside the stowed `~/.vim` symlink.
+- `tmux/` — pins `default-terminal` and the RGB terminal feature so vim's
+  colorscheme keeps truecolor and italics inside tmux. Current tmux on macOS
+  already detects both from `COLORTERM`; this makes it explicit for older tmux
+  and for sessions where `COLORTERM` is not exported.
 - `bootstrap.sh` — one-command setup, safe to re-run.
 - `macos-defaults.sh` — macOS system preferences.
 

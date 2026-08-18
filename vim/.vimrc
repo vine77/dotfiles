@@ -37,6 +37,10 @@ endif
 let &undodir = s:undodir
 set undofile
 
+" hlsearch leaves results lit with no built-in way to dismiss them;
+" defaults.vim provides no mapping for it.
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+
 " defaults.vim turns the mouse on; uncomment to get plain terminal
 " text selection back.
 " set mouse=
