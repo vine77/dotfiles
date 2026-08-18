@@ -18,7 +18,7 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
 
 ## Layout
 
-- `zsh/`, `git/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
+- `zsh/`, `git/`, `vim/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
   both OSes: shared config is unconditional, tool-specific bits are guarded
   with `command -v`, and macOS-only pieces live in one `$OSTYPE` block.
 - `Brewfile.macos`, `Brewfile.linux` — per-OS package ledgers. `.zshrc` points
@@ -28,6 +28,11 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
   after installs/uninstalls) is safe on every platform. A new platform needs
   one more `Brewfile.<os>` plus a matching case branch in `zsh/.zshrc` and
   `bootstrap.sh`.
+- `vim/` — `.vimrc` plus the `monokai_machine` colorscheme (Monokai Machine,
+  matching the VS Code theme). The `.vimrc` explicitly sources
+  `defaults.vim`: macOS ships a system vimrc that sets `skip_defaults_vim`, so
+  without this Vim starts with syntax highlighting off. Undo history is kept in
+  `~/.local/state/vim/undo`, outside the stowed `~/.vim` symlink.
 - `bootstrap.sh` — one-command setup, safe to re-run.
 - `macos-defaults.sh` — macOS system preferences.
 
