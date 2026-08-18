@@ -28,6 +28,8 @@ brew "node"
 brew "ocrmypdf"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Cross-platform library for audio I/O
+brew "portaudio"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
