@@ -33,6 +33,12 @@ defaults write com.apple.screencapture location -string "$HOME/Downloads"
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
+# iTerm2 — never block logout/restart with "close sessions?" dialogs
+# (the per-profile "Prompt before closing" is set to Never in the GUI; iTerm2
+# rewrites its plist on quit, so quit it before re-running this)
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+defaults write com.googlecode.iterm2 OnlyWhenMoreTabs -bool false
+
 # Restart affected apps
 for app in Finder Dock SystemUIServer; do
   killall "$app" &>/dev/null || true
