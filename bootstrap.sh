@@ -17,23 +17,11 @@ for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr
   fi
 done
 
-# Brewfile ledger — per-host when one exists, else per-OS (same rule as zsh/.zshrc)
+# Per-OS Brewfile ledger (same selection as zsh/.zshrc)
 case "$OSTYPE" in
-  darwin*) ledger_os=macos ;;
-  *)       ledger_os=linux ;;
+  darwin*) export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.macos" ;;
+  *)       export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.linux" ;;
 esac
-ledger_host="$(hostname -s | tr '[:upper:]' '[:lower:]')"
-if [[ -f "$DOTFILES_DIR/Brewfile.$ledger_os.$ledger_host" ]]; then
-  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.$ledger_os.$ledger_host"
-else
-  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.$ledger_os"
-fi
-# New machine with no ledger yet: seed this host's file from what's installed
-if [[ ! -f "$HOMEBREW_BUNDLE_FILE" ]]; then
-  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.$ledger_os.$ledger_host"
-  echo "==> No ledger for this machine; creating ${HOMEBREW_BUNDLE_FILE##*/} from installed packages..."
-  brew bundle dump --file="$HOMEBREW_BUNDLE_FILE"
-fi
 
 # Packages & apps
 echo "==> Installing from ${HOMEBREW_BUNDLE_FILE##*/}..."

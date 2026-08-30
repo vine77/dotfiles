@@ -21,16 +21,13 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
 - `zsh/`, `git/`, `vim/`, `tmux/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
   both OSes: shared config is unconditional, tool-specific bits are guarded
   with `command -v`, and macOS-only pieces live in one `$OSTYPE` block.
-- `Brewfile.<os>[.<host>]` — package ledgers, one per machine:
-  `Brewfile.macos.macmini`, `Brewfile.macos.macbookpro`, `Brewfile.linux`.
-  `.zshrc` and `bootstrap.sh` point `HOMEBREW_BUNDLE_FILE` at
-  `Brewfile.<os>.<host>` (lowercase short hostname) when it exists, else
-  `Brewfile.<os>`, so bare `brew bundle` and `brew bundle dump` read/write this
-  machine's file and the `brew()` auto-sync wrapper (which dumps and commits
-  after installs/uninstalls) never fights another machine's ledger. Two
-  machines sharing one file each keep "correcting" it to their own package
-  set, which is why macOS is split per host. A new machine gets a ledger
-  seeded from its installed packages on its first `bootstrap.sh`.
+- `Brewfile.macos`, `Brewfile.linux` — per-OS package ledgers. `.zshrc` points
+  `HOMEBREW_BUNDLE_FILE` at this OS's file, so bare `brew bundle` and
+  `brew bundle dump` read/write the right one. Each machine only ever dumps to
+  its own ledger, so the `brew()` auto-sync wrapper (which dumps and commits
+  after installs/uninstalls) is safe on every platform. A new platform needs
+  one more `Brewfile.<os>` plus a matching case branch in `zsh/.zshrc` and
+  `bootstrap.sh`.
 - `vim/` — `.vimrc` plus the `monokai_machine` colorscheme (Monokai Machine,
   matching the VS Code theme). The `.vimrc` explicitly sources
   `defaults.vim`: macOS ships a system vimrc that sets `skip_defaults_vim`, so

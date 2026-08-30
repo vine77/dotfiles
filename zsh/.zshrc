@@ -17,19 +17,11 @@ export DOTFILES_DIR="$HOME/src/dotfiles"
 export EDITOR=vim
 export VISUAL=vim
 
-# Brewfile ledger — this machine's file (Brewfile.<os>.<host>) when one exists,
-# else the per-OS file; `brew bundle` reads it, sync_brewfile writes it
+# Per-OS Brewfile ledger — `brew bundle` reads it, sync_brewfile writes it
 case "$OSTYPE" in
-  darwin*) _ledger_os=macos ;;
-  linux*)  _ledger_os=linux ;;
+  darwin*) export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.macos" ;;
+  linux*)  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.linux" ;;
 esac
-_ledger_host="${(L)$(hostname -s)}"
-if [[ -f "$DOTFILES_DIR/Brewfile.$_ledger_os.$_ledger_host" ]]; then
-  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.$_ledger_os.$_ledger_host"
-else
-  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.$_ledger_os"
-fi
-unset _ledger_os _ledger_host
 
 # History
 HISTFILE=~/.zsh_history
