@@ -33,6 +33,11 @@ defaults write com.apple.screencapture location -string "$HOME/Downloads"
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
+# Keep windows on quit so apps (iTerm2 especially) can restore their contents
+# — System Settings > Desktop & Dock > "Close windows when quitting" = off
+# (https://iterm2.com/why_no_content.html)
+defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
+
 # iTerm2 — never block logout/restart with "close sessions?" dialogs
 # (the per-profile "Prompt before closing" is set to Never in the GUI; iTerm2
 # rewrites its plist on quit, so quit it before re-running this)
