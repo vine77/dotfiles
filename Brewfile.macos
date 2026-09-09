@@ -128,8 +128,6 @@ cask "tailscale-app"
 cask "vibetunnel"
 # Open-source code editor
 cask "visual-studio-code"
-# Sound and music editor
-cask "ableton-live-suite"
 # Collection of apps and services for photography, design, video, web, and UX
 cask "adobe-creative-cloud"
 # Cross platform SQL editor and database management app
