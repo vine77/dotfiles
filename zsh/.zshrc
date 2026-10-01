@@ -125,6 +125,25 @@ alias openapi-mock="npx @stoplight/prism-cli mock https://raw.githack.com/OAI/Op
 alias ccu="npx -y ccusage@latest"
 alias yolo="claude --dangerously-skip-permissions"
 
+# tmux — `mux <name>` attaches or creates (shares with other attached clients),
+# `mux`/`mux ls` lists, `mux kill <name>` ends it, `mux help` explains
+mux() {
+  case "$1" in
+    ""|ls|list) tmux list-sessions 2>/dev/null || printf '%s\n' 'No tmux sessions (start one: mux <name>)' ;;
+    kill)       tmux kill-session -t "${2:?usage: mux kill <name>}" ;;
+    help|-h|--help)
+      printf '%s\n' 'mux — shortcuts for tmux sessions
+
+usage: mux <name>       Create or attach to session <name>
+       mux [ls|list]    List sessions
+       mux kill <name>  End session <name>
+       mux help         Show this help
+
+detach: Ctrl-b d (the session keeps running)' ;;
+    *)          tmux new-session -A -s "$1" ;;
+  esac
+}
+
 # Functions
 # thin wrapper over the `git br` alias (.gitconfig) — single source of the format
 br() {
