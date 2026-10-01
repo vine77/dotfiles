@@ -3,6 +3,13 @@ export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
+# zsh config
+setopt interactive_comments
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_all_dups share_history inc_append_history
+
 # Homebrew — macOS (/opt/homebrew) or Linux (linuxbrew); first found wins
 for _brew in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
   [[ -x $_brew ]] && eval "$($_brew shellenv)" && break
@@ -22,12 +29,6 @@ case "$OSTYPE" in
   darwin*) export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.macos" ;;
   linux*)  export HOMEBREW_BUNDLE_FILE="$DOTFILES_DIR/Brewfile.linux" ;;
 esac
-
-# History
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt hist_ignore_all_dups share_history inc_append_history
 
 # Terminal title — show current directory name (only when stdout is a terminal,
 # so piped/captured shells don't get escape codes glued to their output)
@@ -105,7 +106,7 @@ elif command -v wl-copy &>/dev/null; then
   alias copy=wl-copy
 fi
 alias mirror="wget --mirror --no-parent --convert-links --page-requisites --adjust-extension"
-alias weather="curl -4 wttr.in/portland"
+alias forecast="curl -4 wttr.in/portland"
 alias dif='colordiff --width=$(tput cols) -y'
 alias wdif="wdiff -n -w $'\033[30;41m' -x $'\033[0m' -y $'\033[30;42m' -z $'\033[0m'"
 alias untar="tar -xvf"  # tar auto-detects compression on extract (gz/bz2/xz/zst)
