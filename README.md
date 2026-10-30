@@ -18,7 +18,7 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
 
 ## Layout
 
-- `zsh/`, `git/`, `vim/`, `tmux/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
+- `zsh/`, `git/`, `vim/`, `tmux/`, `starship/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
   both OSes: shared config is unconditional, tool-specific bits are guarded
   with `command -v`, and macOS-only pieces live in one `$OSTYPE` block.
 - `Brewfile.macos`, `Brewfile.linux` — per-OS package ledgers. `.zshrc` points
@@ -37,6 +37,8 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
   colorscheme keeps truecolor and italics inside tmux. Current tmux on macOS
   already detects both from `COLORTERM`; this makes it explicit for older tmux
   and for sessions where `COLORTERM` is not exported.
+- `starship/` — the prompt: a powerline-style Starship config on a custom
+  Monokai palette (`monokai_filter`). Needs a Nerd Font for the glyphs.
 - `bootstrap.sh` — one-command setup, safe to re-run.
 - `macos-defaults.sh` — macOS system preferences.
 
