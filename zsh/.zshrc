@@ -48,6 +48,7 @@ update_terminal_cwd
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
 fi
+[[ -d "$HOME/.docker/bin" ]] && export PATH="$PATH:$HOME/.docker/bin"
 [[ -d "$HOME/.docker/completions" ]] && FPATH="$HOME/.docker/completions:$FPATH"
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh-24) ]]; then
