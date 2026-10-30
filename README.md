@@ -18,7 +18,7 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
 
 ## Layout
 
-- `zsh/`, `git/`, `vim/`, `tmux/`, `starship/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
+- `zsh/`, `git/`, `vim/`, `tmux/`, `starship/`, `claude/` — stow packages, symlinked into `$HOME`. One `.zshrc` serves
   both OSes: shared config is unconditional, tool-specific bits are guarded
   with `command -v`, and macOS-only pieces live in one `$OSTYPE` block.
 - `Brewfile.macos`, `Brewfile.linux` — per-OS package ledgers. `.zshrc` points
@@ -39,6 +39,12 @@ in anything worth keeping (machine-local PATH entries, keys) and deleted them.
   and for sessions where `COLORTERM` is not exported.
 - `starship/` — the prompt: a powerline-style Starship config on a custom
   Monokai palette (`monokai_filter`). Needs a Nerd Font for the glyphs.
+- `claude/` — Claude Code status line. `statusline.sh` maps the session JSON
+  Claude Code pipes in onto `CLAUDE_*` env vars, then renders
+  `statusline.toml` with Starship, styled to match the shell prompt: model and
+  effort, directory, git, open PR, context % (green/peach/red at 50/75%),
+  and 5h/7d usage. `settings.json` stays per-machine; bootstrap adds the
+  `statusLine` entry only if that machine has none.
 - `bootstrap.sh` — one-command setup, safe to re-run.
 - `macos-defaults.sh` — macOS system preferences.
 

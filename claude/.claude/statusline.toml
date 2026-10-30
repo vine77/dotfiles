@@ -1,0 +1,71 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Claude Code status line, rendered by statusline.sh. Palette, separators and
+# the directory/git segments mirror ~/.config/starship.toml so the two match.
+
+add_newline = false
+command_timeout = 1000
+
+format = """
+[](red)\
+${env_var.CLAUDE_MODEL}\
+[](bg:peach fg:red)\
+$directory\
+[](bg:yellow fg:peach)\
+$git_branch\
+$git_status\
+${env_var.CLAUDE_PR}\
+${env_var.CLAUDE_CTX_OK}\
+${env_var.CLAUDE_CTX_WARN}\
+${env_var.CLAUDE_CTX_HIGH}\
+${env_var.CLAUDE_LIMITS}\
+[ ](fg:sapphire)"""
+
+palette = 'monokai_filter'
+
+[env_var.CLAUDE_MODEL]
+style = "bg:red fg:crust"
+format = '[ 󰚩 $env_value ]($style)'
+
+[directory]
+style = "bg:peach fg:crust"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
+
+[git_status]
+style = "bg:yellow"
+format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
+
+[env_var.CLAUDE_PR]
+style = "bg:yellow fg:crust"
+format = '[ $env_value ]($style)'
+
+# Context variants carry their own separators so the block can change color
+# while its yellow and sapphire neighbors stay fixed.
+[env_var.CLAUDE_CTX_OK]
+format = '[](fg:yellow bg:green)[ 󰍛 $env_value ](fg:crust bg:green)[](fg:green bg:sapphire)'
+
+[env_var.CLAUDE_CTX_WARN]
+format = '[](fg:yellow bg:peach)[ 󰍛 $env_value ](fg:crust bg:peach)[](fg:peach bg:sapphire)'
+
+[env_var.CLAUDE_CTX_HIGH]
+format = '[](fg:yellow bg:red)[ 󰍛 $env_value ](fg:crust bg:red)[](fg:red bg:sapphire)'
+
+[env_var.CLAUDE_LIMITS]
+style = "bg:sapphire fg:crust"
+format = '[ 󰔟 $env_value ]($style)'
+
+[palettes.monokai_filter]
+red = "#ff6d7e"
+peach = "#ffb270"
+yellow = "#ffec6d"
+green = "#a2e57b"
+sapphire = "#7cd5f1"
+lavender = "#baa0f8"
+crust = "#181c1e"

@@ -37,7 +37,7 @@ fi
 
 # Stow dotfiles — move aside any real files that would block linking
 echo "==> Linking dotfiles..."
-for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.vimrc" "$HOME/.vim" "$HOME/.config/tmux" "$HOME/.config/starship.toml"; do
+for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.vimrc" "$HOME/.vim" "$HOME/.config/tmux" "$HOME/.config/starship.toml" "$HOME/.claude/statusline.sh" "$HOME/.claude/statusline.toml"; do
   [[ -e "$f" || -L "$f" ]] || continue
   link="$(readlink "$f" 2>/dev/null || true)"
   target="$(readlink -f "$f" 2>/dev/null || true)"
@@ -50,7 +50,17 @@ for f in "$HOME/.zshrc" "$HOME/.gitconfig" "$HOME/.gitignore_global" "$HOME/.vim
     mv "$f" "$backup"
   fi
 done
-stow -v -R --target="$HOME" git starship tmux vim zsh
+stow -v -R --target="$HOME" claude git starship tmux vim zsh
+
+# ~/.claude/settings.json is per-machine state, so it isn't stowed; just point
+# it at the stowed status line, leaving any statusLine this machine already set
+claude_settings="$HOME/.claude/settings.json"
+# (test for absence rather than negating presence: unparseable JSON must fail it)
+if command -v jq &>/dev/null && [[ -f "$claude_settings" ]] && jq -e '.statusLine == null' "$claude_settings" &>/dev/null; then
+  echo "==> Enabling Claude Code status line..."
+  updated="$(jq '.statusLine = {type: "command", command: "~/.claude/statusline.sh"}' "$claude_settings")" &&
+    printf '%s\n' "$updated" > "$claude_settings"  # rewrite in place to keep the file's mode
+fi
 
 # Remind about migration backups until they're reviewed and removed
 backups="$(ls -d "$HOME"/.*.pre-dotfiles* "$HOME"/.config/*.pre-dotfiles* 2>/dev/null)" || true
