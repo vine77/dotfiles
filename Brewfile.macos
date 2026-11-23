@@ -1,4 +1,5 @@
 tap "finnvoor/tools"
+tap "kamillobinski/thock"
 tap "keith/formulae"
 tap "oven-sh/bun", trusted: true
 tap "vine77/subs", trusted: true
@@ -80,6 +81,8 @@ cask "notion"
 cask "obsidian"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
+# Thock your mac keyboard
+cask "kamillobinski/thock/thock", trusted: true
 # Turn any browser into your terminal
 cask "vibetunnel"
 # Open-source code editor
