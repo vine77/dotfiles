@@ -5,6 +5,8 @@
 defaults write com.apple.finder AppleShowAllFiles -bool true
 # Open/save dialogs in every other app read the global domain, not Finder's
 defaults write NSGlobalDomain AppleShowAllFiles -bool true
+# Global despite the Finder checkbox; also overrides per-file "Hide extension"
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
